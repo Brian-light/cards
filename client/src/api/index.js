@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "https://cards-mern.onrender.com" });
+const API = axios.create({ baseURL: "https://cardsapi-rho.vercel.app" });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
