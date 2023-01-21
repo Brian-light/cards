@@ -1,7 +1,7 @@
 # Cards
 A basic mern app for game reviews.
 
-##Stack Used: 
+### Stack Used: 
 * javaScript
 * node.js
 * mongodb atlas
@@ -10,6 +10,6 @@ A basic mern app for game reviews.
 * express.js
 * react.js
 
-##URL:
-<a>https://gamereviewcards.vercel.app/posts</a>
+### URL:
+<a>https://gamereviewcards.vercel.app</a>
 
