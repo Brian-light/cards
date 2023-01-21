@@ -88,7 +88,7 @@ const Form = ({ currentId, setCurrentId }) => {
         onSubmit={handleSubmit}
       >
         <Typography variant="h6">
-          {currentId ? "Editing" : "Creating"} a Memory
+          {currentId ? "Editing" : "Create"} a Review
         </Typography>
         <TextField
           name="title"
@@ -98,17 +98,6 @@ const Form = ({ currentId, setCurrentId }) => {
           required
           value={postData.title}
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
-        />
-        <TextField
-          name="message"
-          variant="outlined"
-          label="Message"
-          fullWidth
-          required
-          value={postData.message}
-          onChange={(e) =>
-            setPostData({ ...postData, message: e.target.value })
-          }
         />
         <TextField
           name="tags"
@@ -122,6 +111,20 @@ const Form = ({ currentId, setCurrentId }) => {
               ...postData,
               tags: e.target.value.replace(/\s/g, "").split(","),
             })
+          }
+        />
+        <TextField
+          name="message"
+          variant="outlined"
+          label="Review"
+          fullWidth
+          multiline
+          minRows={9}
+          maxRows={9}
+          required
+          value={postData.message}
+          onChange={(e) =>
+            setPostData({ ...postData, message: e.target.value })
           }
         />
         <div className={classes.fileInput}>

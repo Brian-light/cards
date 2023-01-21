@@ -17,12 +17,12 @@ const Navbar = () => {
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
+    history.push("/auth");
     setUser(null);
   };
 
   useEffect(() => {
     const token = user?.token;
-
     if (token) {
       const decodedToken = decode(token);
 
@@ -70,10 +70,9 @@ const Navbar = () => {
           </div>
         ) : (
           <Button
-            component={Link}
-            to="/auth"
             variant="contained"
             color="primary"
+            onClick={() => history.push("/auth")}
           >
             Sign In
           </Button>

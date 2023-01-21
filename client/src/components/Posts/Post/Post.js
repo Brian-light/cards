@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useStyles from "./styles";
 import {
   Card,
@@ -28,12 +28,14 @@ const Post = ({ post, setCurrentId }) => {
 
   const Likes = () => {
     if (likes.length > 0) {
-      return likes.find((like) => like === userId) ? (
+      return likes.includes(userId) ? (
         <>
           <ThumbUpAltIcon fontSize="small" />
           &nbsp;
-          {likes.length > 2
-            ? `You and ${likes.length - 1} others`
+          {likes.length >= 2
+            ? `You and ${likes.length - 1} other${
+                likes.length === 2 ? "" : "s"
+              }`
             : `${likes.length} like${likes.length > 1 ? "s" : ""}`}
         </>
       ) : (
@@ -123,7 +125,7 @@ const Post = ({ post, setCurrentId }) => {
         {user?.id === post?.creator && (
           <Button
             size="small"
-            color="primary"
+            color="secondary"
             onClick={() => dispatch(deletePost(post._id))}
           >
             <DeleteIcon fontSize="small" />

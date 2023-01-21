@@ -1,4 +1,3 @@
-import Axios from "axios";
 import { GOOGLEAUTH, AUTH, LOGOUT } from "../constants/actionTypes";
 
 export default (auth = {}, action) => {

@@ -7,56 +7,60 @@ import useStyles from "./styles";
 
 const CommentSection = ({ post }) => {
   const classes = useStyles();
-  const [comments, setComments] = useState([1, 2, 3, 4]);
+  const [comments, setComments] = useState(post?.comments);
   const [comment, setComment] = useState("");
   const user = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
+  const commentsRef = useRef();
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     const finalComment = `${user.firstName} ${user.lastName}: ${comment}`;
-    dispatch(commentPost(finalComment, post._id));
+    const newComments = await dispatch(commentPost(finalComment, post._id));
+    setComment("");
+    setComments(newComments);
+    commentsRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div>
-      <div className={classes.commentsOuterContainer}>
-        <div className={classes.commentsInnerContainer}>
-          <Typography gutterBottom variant="h6">
-            Comments
+    <div className={classes.commentsOuterContainer}>
+      <div className={classes.commentsInnerContainer}>
+        <Typography gutterBottom variant="h6">
+          Comments
+        </Typography>
+        {comments?.map((c, i) => (
+          <Typography key={i} gutterBottom variant="subtitle1">
+            <strong>{c.split(": ")[0]}: </strong>
+            {c.split(": ")[1]}
           </Typography>
-          {comments?.map((c, i) => (
-            <Typography key={i} gutterBottom variant="subtitle1">
-              Comment {i}
-            </Typography>
-          ))}
-        </div>
-        {user?.token && (
-          <div style={{ width: "70%" }}>
-            <Typography gutterBottom variant="h6">
-              Write a comment
-            </Typography>
-            <TextField
-              fullWidth
-              rows={4}
-              variant="outlined"
-              label="Comment"
-              multiline
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            ></TextField>
-            <Button
-              style={{ marginTop: "10px" }}
-              fullWidth
-              disabled={!comment}
-              variant="contained"
-              onClick={handleClick}
-              color="primary"
-            >
-              Comment
-            </Button>
-          </div>
-        )}
+        ))}
+        <div ref={commentsRef} />
       </div>
+      {user?.token && (
+        <div style={{ width: "60%" }}>
+          <Typography gutterBottom variant="h6">
+            Write a comment
+          </Typography>
+          <TextField
+            fullWidth
+            minRows={4}
+            variant="outlined"
+            label="Comment"
+            multiline
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          ></TextField>
+          <Button
+            style={{ marginTop: "10px" }}
+            fullWidth
+            disabled={!comment}
+            variant="contained"
+            onClick={handleClick}
+            color="primary"
+          >
+            Comment
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

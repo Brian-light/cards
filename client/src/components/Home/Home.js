@@ -7,9 +7,9 @@ import {
   TextField,
   Button,
 } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getPosts, getPostsBySearch } from "../../actions/posts";
+import { getPostsBySearch } from "../../actions/posts";
 import { useHistory, useLocation } from "react-router-dom";
 import ChipInput from "material-ui-chip-input";
 
@@ -78,7 +78,7 @@ const Home = () => {
               <TextField
                 name="search"
                 variant="outlined"
-                label="Search Memories"
+                label="Search Reviews"
                 fullWidth
                 onKeyPress={handelKeyPress}
                 value={search}
@@ -89,7 +89,7 @@ const Home = () => {
                 value={tags}
                 onAdd={handleAdd}
                 onDelete={handleDelete}
-                label="Search Tags"
+                label="Search by Tags"
                 variant="outlined"
               />
               <Button
